@@ -1,0 +1,157 @@
+John and Harry did equal work.
+
+commit 6028dd3f232c2f97937fa9e7cec373b59d8d51d7
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Tue Mar 1 22:17:36 2016 -0700
+
+    Finished part 3. I had moved 'board[row][i] = current' to be after our if/else statements that set up each cell. When we came across a cell 'CN' or any char then 'N', we would 'continue' and skip over 'board[row][i] = current'. This caused that cell to be null. Removing the continue fixed everything.
+
+commit de480e0643e92a7a2f3439fd0b3da4936fd89b7d
+Author: Harry <hhiggins@mines.edu>
+Date:   Tue Mar 1 17:20:02 2016 -0700
+
+    Not much changed.
+
+commit 512291c3a33ac03a7373901e9de627862d3f9c7d
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Tue Mar 1 15:29:18 2016 -0700
+
+    Hopefully finished Part 3.. her Junit tests are crapping everywheregit statusgit status
+
+commit 7260608af185707577f26de57718db5a858e98d1
+Author: Harry <hhiggins@mines.edu>
+Date:   Tue Mar 1 12:33:56 2016 -0700
+
+    In class starting on Part 3
+
+commit cfda70ea5fb5059ac96f40812c6d4b417a5082a8
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Mon Feb 29 23:54:25 2016 -0700
+
+    The last message applies to this.
+
+commit 7bbdbe1ae7bce32c594698f6ee8c312381e584aa
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Mon Feb 29 23:52:39 2016 -0700
+
+    Got it so that loadBoardConfig will work with any size board. Also got all of our Part 1 tests working... was comparing i < numColumns when it shold have been j... Hours were lost because of that...
+
+commit 2b08643aaa44fbc8daf6d866dd7e374141e86932
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Mon Feb 29 23:20:28 2016 -0700
+
+    Finished up Board Part II. We're getting null pointer exceptions when we try to access individual boardcells in our Part1 Junit tests... It will be fun to do that tomorrow!
+
+commit 7ff8f404f9b8628fc28212f2e63de142ebd14ef4
+Author: John Galbavy <jgalbavy@mymail.mines.edu>
+Date:   Mon Feb 29 18:02:23 2016 -0700
+
+    Forgot to add the Part2Tests
+
+commit ff37055baf3256f586c0753638b86fa18e513c5f
+Author: John Galbavy <jgalbavy@mymail.mines.edu>
+Date:   Mon Feb 29 18:00:20 2016 -0700
+
+    I think I finished her tests but they need to be looked over
+
+commit 167fe561a35a48bf8d576ca137142d3f1b7784f6
+Author: John Galbavy <jgalbavy@mymail.mines.edu>
+Date:   Mon Feb 29 17:19:10 2016 -0700
+
+    Got all her tests working
+
+commit 3079d992432ae85db3109a226618ebdb0d330eef
+Author: John Galbavy <jgalbavy@mymail.mines.edu>
+Date:   Mon Feb 29 16:25:12 2016 -0700
+
+    Working on door tests
+
+commit c258f49d7ccac613ada3aa9ff6b15b79bdb7a621
+Author: John Galbavy <jgalbavy@mymail.mines.edu>
+Date:   Mon Feb 29 13:46:01 2016 -0700
+
+    Started working on BoardConfig
+
+commit c3939f917a100a7384fd20807bb9c062eca657ba
+Author: John Galbavy <jgalbavy@mymail.mines.edu>
+Date:   Mon Feb 29 12:55:58 2016 -0700
+
+    Part 1
+
+commit 77af0c6093fae833abe166c1fa28b7bc8d2b70d8
+Merge: b59d433 9c4db61
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Mon Feb 29 12:38:13 2016 -0700
+
+    Merge branch 'master' of https://github.com/DiggerBuff/Clue
+    
+    Umm I'm not sure what's happening here.
+
+commit b59d433b8755cd75be7098129dd7de1a1814413e
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Mon Feb 29 12:37:27 2016 -0700
+
+    undid the .gitignore stuff
+
+commit 9c4db615a2cd2a0dc3f49d009c861860ac4a4f62
+Author: Harry <hhiggins@mines.edu>
+Date:   Mon Feb 29 12:22:55 2016 -0700
+
+    got rid of a warning
+
+commit eb8a54709d685d3eb4aa4e1a87665c31fbfd3d10
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Mon Feb 29 12:08:01 2016 -0700
+
+    Minh helped us fix the targets algorithm.
+
+commit bddec7520d161d668e0d441c066651a749c0e32d
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Sun Feb 28 10:59:51 2016 -0700
+
+    Modified gitignore to not track a bunch of stuff... we can undo this pretty easily if it turns out we need to
+
+commit c2f4cb38509a2e6292a1e88da632af5efa98c911
+Merge: 9c98b8a e45fd74
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Sun Feb 28 10:50:37 2016 -0700
+
+    Merge branch 'master' of https://github.com/DiggerBuff/Clue
+    I am merging to github and wanted to pull there default readme and
+    gitignore files
+
+commit 9c98b8ab0b16d2ad45d9741962cd4073169ee99b
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Sun Feb 28 10:25:02 2016 -0700
+
+    Moved stuff around in folders, deleted redundant files, and then cleaned up our board file so that it doesn't create null pointer exceptions. I also had to mess with our Part1 tests to get them to fail correctly.
+
+commit e45fd740f6c05e4a106650b7ca0e801d3de86396
+Author: DiggerBuff <hhiggins@mines.edu>
+Date:   Sun Feb 28 09:44:08 2016 -0700
+
+    Initial commit
+
+commit adfefbbf6ad549179850e677f11c832f8e56bc39
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Fri Feb 26 17:18:03 2016 -0700
+
+    done
+
+commit 8d93ad67d58b821022fa53714528dd9ac6f7f7d6
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Fri Feb 26 16:33:36 2016 -0700
+
+    cleaning house
+
+commit 35214b94eb80155cd2497c429bd98d4201254589
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Fri Feb 26 16:22:38 2016 -0700
+
+    Okay maybe now I'm tracking everything...
+
+commit cdbda361c51f1b5bd221c2a1b38f8c83ee24e113
+Author: Harry Higgins <hhiggins@mines.edu>
+Date:   Fri Feb 26 15:45:10 2016 -0700
+
+    Just starting.
