@@ -1,12 +1,15 @@
 package clueGame;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
@@ -22,6 +25,10 @@ public class Board {
 	private Set<BoardCell> visited;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private String playerConfigFile;
+	private String weaponConfigFile;
+	private Card[] deckOfCards;
+	private Player[] playerArray;
 	public int numDoors;
 	
 	// constructor
@@ -34,10 +41,12 @@ public class Board {
 		//this.targets = new HashSet<BoardCell>();
 		this.boardConfigFile = "ClueLayout.csv";
 		this.roomConfigFile = "ClueLegend.txt";
+		this.playerConfigFile = "Players.txt";
+		this.weaponConfigFile = "Weapons.txt";
 	}	
 
 	// constructor with files
-	public Board(String boardConfigFile, String roomConfigFile) {
+	public Board(String boardConfigFile, String roomConfigFile, String playerConfigFile, String weaponConfigFile) {
 		super();
 		board = new BoardCell[BOARD_SIZE][BOARD_SIZE];
 		this.adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
@@ -46,6 +55,8 @@ public class Board {
 		//this.targets = new HashSet<BoardCell>();
 		this.boardConfigFile = boardConfigFile;
 		this.roomConfigFile = roomConfigFile;
+		this.playerConfigFile = playerConfigFile;
+		this.weaponConfigFile = weaponConfigFile;
 	}
 
 	// initialize the board
@@ -66,9 +77,59 @@ public class Board {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			loadConfigFiles();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < deckOfCards.length; i++) {
+			System.out.println(deckOfCards[i]);
+		}
+		for (int i = 0; i < playerArray.length; i++) {
+			System.out.println(playerArray[i]);
+		}
 		calcAdjacencies();
 	}
 
+	// THIS IS WHERE WE ARE WORKING 3/22
+	
+	public void loadConfigFiles() throws IOException{
+		deckOfCards = new Card[21];
+		playerArray = new Player[6];
+		FileReader playerConfigReader = new FileReader(playerConfigFile);
+		FileReader weaponConfigReader = new FileReader(weaponConfigFile);
+		String line;
+		int counter = 0;
+		Scanner playerReader = new Scanner(playerConfigReader);
+		while(playerReader.hasNextLine()){
+			line = playerReader.nextLine();
+			String[] temp = line.split(", ");
+			Card nextCard = new Card(temp[0], "PERSON");
+			deckOfCards[counter] = nextCard;
+			Color color;
+			try {
+			Field field = Class.forName("java.awt.Color").getField(temp[1]);
+			color = (Color)field.get(null);
+			} catch (Exception e){
+				color = null;
+			}
+			Player nextPlayer = new Player(temp[0], 15, 15, color);
+			playerArray[counter] = nextPlayer;
+			counter++;
+		}
+		Scanner weaponReader = new Scanner(weaponConfigReader);
+		while(weaponReader.hasNextLine()){
+			line = weaponReader.nextLine();
+			Card nextCard = new Card(line, "WEAPON");
+			deckOfCards[counter] = nextCard;
+			counter++;
+		}
+		
+		
+	}
+	
 	public void loadRoomConfig() throws BadConfigFormatException, IOException{
 		// parse file into usable crap - John
 		String line = null;
@@ -294,11 +355,13 @@ public class Board {
 
 	// We will probably use this in the future...
 	public static void main(String[] args) {
-		/*
+		
 		String boardConfigFile = "ClueLayout.csv";
 		String roomConfigFile = "ClueLegend.txt";
+		String playerConfigFile = "Players.txt";
+		String weaponConfigFile = "Weapons.txt";
 
-		Board board = new Board(boardConfigFile, roomConfigFile);
+		Board board = new Board(boardConfigFile, roomConfigFile, playerConfigFile, weaponConfigFile);
 		board.initialize();
 		BoardCell cell = board.getCellAt(4, 4);
 		System.out.println(cell.toString());
@@ -310,6 +373,6 @@ public class Board {
 
 		System.out.println(board.getNumDoors());
 		
-		System.out.println("END MAIN");*/
+		System.out.println("END MAIN");
 	}
 }
