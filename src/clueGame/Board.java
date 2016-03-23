@@ -1,10 +1,14 @@
 package clueGame;
 import java.awt.Color;
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -20,7 +24,7 @@ public class Board {
 	
 
 	private static HashMap<Character, String> rooms;
-	private Map<BoardCell, LinkedList<BoardCell>> adjMtx; 
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 	private String boardConfigFile;
@@ -29,6 +33,8 @@ public class Board {
 	private String weaponConfigFile;
 	private Card[] deckOfCards;
 	private Player[] playerArray;
+	private ArrayList<Player> playerList;
+	private ArrayList<Card> dealCardsList;
 	public int numDoors;
 	
 	// constructor
@@ -93,13 +99,14 @@ public class Board {
 		calcAdjacencies();
 	}
 
-	// THIS IS WHERE WE ARE WORKING 3/22
-	
+	// This will load in the files, read through them, and add the cards to the deck of cards
 	public void loadConfigFiles() throws IOException{
 		deckOfCards = new Card[21];
 		playerArray = new Player[6];
+		playerList = new ArrayList<Player>();
 		FileReader playerConfigReader = new FileReader(playerConfigFile);
 		FileReader weaponConfigReader = new FileReader(weaponConfigFile);
+		FileReader roomConfigReader = new FileReader(roomConfigFile);
 		String line;
 		int counter = 0;
 		Scanner playerReader = new Scanner(playerConfigReader);
@@ -115,7 +122,8 @@ public class Board {
 			} catch (Exception e){
 				color = null;
 			}
-			Player nextPlayer = new Player(temp[0], 15, 15, color);
+			Player nextPlayer = new Player(temp[0], 15, 11, color);
+			playerList.add(nextPlayer);
 			playerArray[counter] = nextPlayer;
 			counter++;
 		}
@@ -126,8 +134,17 @@ public class Board {
 			deckOfCards[counter] = nextCard;
 			counter++;
 		}
-		
-		
+		Scanner roomReader = new Scanner(roomConfigReader);
+		while(roomReader.hasNextLine()){
+			line = roomReader.nextLine();
+			String[] temp = line.split(", ");
+			Card nextCard = new Card(temp[1], "ROOM");
+			deckOfCards[counter] = nextCard;
+			counter++;
+			if(counter == 21){
+				break;
+			}
+		}
 	}
 	
 	public void loadRoomConfig() throws BadConfigFormatException, IOException{
@@ -352,6 +369,46 @@ public class Board {
 		}
 	}
 	
+	//Deal the deck out
+	public void dealCards(){
+		//Turn the array into a list so it can be shuffled
+		dealCardsList = new ArrayList<Card>(Arrays.asList(deckOfCards));
+		Collections.shuffle(dealCardsList);
+		// Deal the cards out now that they're shuffled
+		for(int i = 0; i < dealCardsList.size(); i++){
+			playerList.get(i%playerList.size()).givePlayerCard(dealCardsList.get(i)); 
+		}
+		System.out.println("HERES THE FIRST PLAYERS CARDS: " + playerList.get(0).getCardList());
+	}
+	
+	public ArrayList<Card> getCardsList(){
+		return dealCardsList;
+	}
+	
+	public ArrayList<Player> getPlayerList(){
+		return playerList;
+	}
+	
+	public int getArraySize(){
+		return playerArray.length;
+	}
+	
+	public int getCardDeckSize(){
+		return deckOfCards.length;
+	}
+	
+	public Card[] getCardArray(){
+		return deckOfCards;
+	}
+	
+	public Player getPlayer(int whichPlayer){
+		return playerArray[whichPlayer];
+	}
+	
+	public ArrayList<Card> getCardList(){
+		ArrayList<Card> list = new ArrayList<Card>(Arrays.asList(deckOfCards));
+		return list;
+	}
 
 	// We will probably use this in the future...
 	public static void main(String[] args) {
@@ -363,6 +420,7 @@ public class Board {
 
 		Board board = new Board(boardConfigFile, roomConfigFile, playerConfigFile, weaponConfigFile);
 		board.initialize();
+		board.dealCards();
 		BoardCell cell = board.getCellAt(4, 4);
 		System.out.println(cell.toString());
 		if(cell.isDoorway())

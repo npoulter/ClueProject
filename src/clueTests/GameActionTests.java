@@ -10,7 +10,7 @@ private static Board board;
 	
 	@Before
 	public void setUp() {
-		board = new Board("BoardConfig.csv", "legend.txt");
+		board = new Board("BoardConfig.csv", "legend.txt", "Players.txt", "Weapons.txt");
 		board.initialize();
 	}
 	
