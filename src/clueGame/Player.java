@@ -25,6 +25,10 @@ public class Player {
 		size = cardList.size();
 	}
 
+	public Card getOneCard(){
+		return cardList.get(0);
+	}
+	
 	public ArrayList<Card> getCardList(){
 		return cardList;
 	}

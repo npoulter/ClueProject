@@ -35,6 +35,7 @@ public class Board {
 	private Player[] playerArray;
 	private ArrayList<Player> playerList;
 	private ArrayList<Card> dealCardsList;
+	private ArrayList<Card> solution;
 	public int numDoors;
 	
 	// constructor
@@ -103,6 +104,7 @@ public class Board {
 	public void loadConfigFiles() throws IOException{
 		deckOfCards = new Card[21];
 		playerArray = new Player[6];
+		solution = new ArrayList<Card>();
 		playerList = new ArrayList<Player>();
 		FileReader playerConfigReader = new FileReader(playerConfigFile);
 		FileReader weaponConfigReader = new FileReader(weaponConfigFile);
@@ -115,6 +117,7 @@ public class Board {
 			String[] temp = line.split(", ");
 			Card nextCard = new Card(temp[0], "PERSON");
 			deckOfCards[counter] = nextCard;
+			if(counter == 0) solution.add(nextCard);
 			Color color;
 			try {
 			Field field = Class.forName("java.awt.Color").getField(temp[1]);
@@ -132,6 +135,7 @@ public class Board {
 			line = weaponReader.nextLine();
 			Card nextCard = new Card(line, "WEAPON");
 			deckOfCards[counter] = nextCard;
+			if(counter == 6) solution.add(nextCard);
 			counter++;
 		}
 		Scanner roomReader = new Scanner(roomConfigReader);
@@ -140,6 +144,7 @@ public class Board {
 			String[] temp = line.split(", ");
 			Card nextCard = new Card(temp[1], "ROOM");
 			deckOfCards[counter] = nextCard;
+			if(counter == 12) solution.add(nextCard);
 			counter++;
 			if(counter == 21){
 				break;
@@ -376,9 +381,13 @@ public class Board {
 		Collections.shuffle(dealCardsList);
 		// Deal the cards out now that they're shuffled
 		for(int i = 0; i < dealCardsList.size(); i++){
-			playerList.get(i%playerList.size()).givePlayerCard(dealCardsList.get(i)); 
+				playerList.get(i%playerList.size()).givePlayerCard(dealCardsList.get(i)); 
 		}
 		System.out.println("HERES THE FIRST PLAYERS CARDS: " + playerList.get(0).getCardList());
+	}
+	
+	public ArrayList<Card> getSolution(){
+		return solution;
 	}
 	
 	public ArrayList<Card> getCardsList(){

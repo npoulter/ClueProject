@@ -145,5 +145,12 @@ public class GameSetupTests {
 		for(int i = 0; i < localCardsList.size(); i++){
 			localPlayerList.get(i%localPlayerList.size()).givePlayerCard(localCardsList.get(i)); 
 		}
+		Card singleCard = localPlayerList.get(0).getOneCard();
+		assertTrue(localPlayerList.get(0).getCardList().contains(singleCard));
+		assertFalse(localPlayerList.get(1).getCardList().contains(singleCard));
+		assertFalse(localPlayerList.get(2).getCardList().contains(singleCard));
+		assertFalse(localPlayerList.get(3).getCardList().contains(singleCard));
+		assertFalse(localPlayerList.get(4).getCardList().contains(singleCard));
+		assertFalse(localPlayerList.get(5).getCardList().contains(singleCard));
 	}
 }
