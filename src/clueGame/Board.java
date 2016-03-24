@@ -35,6 +35,10 @@ public class Board {
 	private Player[] playerArray;
 	private ArrayList<Player> playerList;
 	private ArrayList<Card> dealCardsList;
+	private ArrayList<Card> roomCards;
+	private ArrayList<Card> weaponCards;
+	private ArrayList<Card> suspectCards;
+	private Solution theSolution;
 	private ArrayList<Card> solution;
 	public int numDoors;
 	
@@ -103,10 +107,10 @@ public class Board {
 			e.printStackTrace();
 		}
 		for (int i = 0; i < deckOfCards.length; i++) {
-			System.out.println(deckOfCards[i]);
+			//System.out.println(deckOfCards[i]);
 		}
 		for (int i = 0; i < playerArray.length; i++) {
-			System.out.println(playerArray[i]);
+			//System.out.println(playerArray[i]);
 		}
 		calcAdjacencies();
 	}
@@ -123,12 +127,19 @@ public class Board {
 		String line;
 		int counter = 0;
 		Scanner playerReader = new Scanner(playerConfigReader);
+		suspectCards = new ArrayList<Card>();
+		
 		while(playerReader.hasNextLine()){
 			line = playerReader.nextLine();
 			String[] temp = line.split(", ");
 			Card nextCard = new Card(temp[0], "PERSON");
 			deckOfCards[counter] = nextCard;
-			if(counter == 0) solution.add(nextCard);
+			suspectCards.add(nextCard);
+			
+			if(counter == 0) {
+				solution.add(nextCard);
+			}
+			
 			Color color;
 			try {
 			Field field = Class.forName("java.awt.Color").getField(temp[1]);
@@ -141,22 +152,36 @@ public class Board {
 			playerArray[counter] = nextPlayer;
 			counter++;
 		}
+		
 		Scanner weaponReader = new Scanner(weaponConfigReader);
+		weaponCards = new ArrayList<Card>();
+		
 		while(weaponReader.hasNextLine()){
 			line = weaponReader.nextLine();
 			Card nextCard = new Card(line, "WEAPON");
 			deckOfCards[counter] = nextCard;
-			if(counter == 6) solution.add(nextCard);
+			weaponCards.add(nextCard);
+			
+			if(counter == 6) {
+				solution.add(nextCard);
+			}
 			counter++;
 		}
 		Scanner roomReader = new Scanner(roomConfigReader);
+		roomCards = new ArrayList<Card>();
+		
 		while(roomReader.hasNextLine()){
 			line = roomReader.nextLine();
 			String[] temp = line.split(", ");
 			Card nextCard = new Card(temp[1], "ROOM");
+			roomCards.add(nextCard);
 			deckOfCards[counter] = nextCard;
-			if(counter == 12) solution.add(nextCard);
+			
+			if(counter == 12) {
+				solution.add(nextCard);
+			}
 			counter++;
+			
 			if(counter == 21){
 				break;
 			}
@@ -198,7 +223,7 @@ public class Board {
         String [] parts = line.split(",");
         numColumns = parts.length;
         do {
-        	System.out.println(line);
+        	//System.out.println(line);
         	parts = line.split(",");
         	if(parts.length != numColumns) {
         		//System.out.println("Bad Columns");
@@ -390,15 +415,44 @@ public class Board {
 		//Turn the array into a list so it can be shuffled
 		dealCardsList = new ArrayList<Card>(Arrays.asList(deckOfCards));
 		Collections.shuffle(dealCardsList);
+		
+		Collections.shuffle(roomCards);
+		Collections.shuffle(suspectCards);
+		Collections.shuffle(weaponCards);
+		
+		
+		theSolution = new Solution(suspectCards.get(0).getCardName(), roomCards.get(0).getCardName(), weaponCards.get(0).getCardName());
+		
+		// Remove solution cards from deck to be dealt
+		dealCardsList.remove(suspectCards.get(0));
+		dealCardsList.remove(roomCards.get(0));
+		dealCardsList.remove(weaponCards.get(0));
+		
+		
 		// Deal the cards out now that they're shuffled
-		for(int i = 0; i < dealCardsList.size(); i++){
-				playerList.get(i%playerList.size()).givePlayerCard(dealCardsList.get(i)); 
+		for (int i = 0; i < dealCardsList.size(); i++) {
+				playerList.get(i % playerList.size()).givePlayerCard(dealCardsList.get(i)); 
 		}
-		System.out.println("HERES THE FIRST PLAYERS CARDS: " + playerList.get(0).getCardList());
+		//System.out.println("HERES THE FIRST PLAYERS CARDS: " + playerList.get(0).getCardList());
 	}
 	
-	public ArrayList<Card> getSolution(){
-		return solution;
+	// TODO: Actually write function
+	public void selectAnswer() {
+		
+	}
+	
+	// TODO: Actually write function
+	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+		return new Card();
+	}
+	
+	// TODO: Actually write function
+	public boolean checkAccusation(Solution accusation) {
+		return true;
+	}
+	
+	public Solution getSolution(){
+		return theSolution;
 	}
 	
 	public ArrayList<Card> getCardsList(){
@@ -442,15 +496,15 @@ public class Board {
 		board.initialize();
 		board.dealCards();
 		BoardCell cell = board.getCellAt(4, 4);
-		System.out.println(cell.toString());
+		//System.out.println(cell.toString());
 		if(cell.isDoorway())
 			System.out.println("is doorway");
-		else
+		else 
 			System.out.println("is NOT doorway");
 
 
-		System.out.println(board.getNumDoors());
+		//System.out.println(board.getNumDoors());
 		
-		System.out.println("END MAIN");
+		//System.out.println("END MAIN");
 	}
 }

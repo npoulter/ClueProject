@@ -9,16 +9,17 @@ import org.junit.Test;
 
 import clueGame.Board;
 import clueGame.Card;
+import clueGame.Solution;
 
 public class GameActionTests {
 private static Board board;
-private ArrayList<Card> localSolution;
+private Solution localSolution;
 	
 	@Before
 	public void setUp() {
 		board = new Board("BoardConfig.csv", "legend.txt", "Players.txt", "Weapons.txt");
 		board.initialize();
-		localSolution = new ArrayList<Card>();
+		board.dealCards();
 		localSolution = board.getSolution();
 	}
 	
@@ -26,25 +27,35 @@ private ArrayList<Card> localSolution;
 	@Test
 	public void testCorrectAccusation() {
 		//Retrieve correct solution
-		Card playerCard = board.getSolution().get(0);
-		Card weaponCard = board.getSolution().get(1);
-		Card roomCard = board.getSolution().get(2);
+		String suspect = board.getSolution().getPerson();
+		String weapon = board.getSolution().getWeapon();
+		String room = board.getSolution().getRoom();
 		// If the guess is correct check that the solution is correct
-		assertTrue(localSolution.contains(playerCard));
-		assertTrue(localSolution.contains(weaponCard));
-		assertTrue(localSolution.contains(roomCard));
+		assertEquals(localSolution.getPerson(), suspect);
+		assertEquals(localSolution.getWeapon(), weapon);
+		assertEquals(localSolution.getRoom(), room);
 	}
 	
 	// Checks accusation is wrong if person, weapon, and/or room are wrong
 	@Test
-	public void testWrongAccusation() {
-		Card playerCard = board.getCardList().get(2);
-		Card weaponCard = board.getCardList().get(3);
-		Card roomCard = board.getCardList().get(4);
+	public void testWrongAccusationS() {
+		
+		String suspect = board.getCardsList().get(0).getCardName();
+		String weapon = board.getCardsList().get(1).getCardName();
+		String room = board.getCardsList().get(2).getCardName();
+		
 		// If the guess is wrong check that the solution does not match
-		assertFalse(localSolution.contains(playerCard));
-		assertFalse(localSolution.contains(weaponCard));
-		assertFalse(localSolution.contains(roomCard));
+		if (localSolution.getPerson().equals(suspect)) {
+			fail();
+		}
+		
+		if (localSolution.getRoom().equals(room)) {
+			fail();
+		}
+		
+		if (localSolution.getWeapon().equals(weapon)) {
+			fail();
+		}
 	}
 	
 	// Test disproving a suggestion when one player has only one possible card

@@ -4,6 +4,11 @@ public class Card {
 	private String cardName;
 	private CardType cardType;
 	
+	public Card() {
+		this.cardName = "Fuck you";
+		this.cardType = CardType.PERSON;
+	}
+	
 	public Card (String cardName, String cardType){
 		this.cardName = cardName;
 		this.cardType = CardType.valueOf(cardType);
@@ -16,6 +21,10 @@ public class Card {
 
 	public CardType getCardType(){
 		return cardType;
+	}
+	
+	public String getCardName(){
+		return cardName;
 	}
 
 	// TODO: Actually write function
