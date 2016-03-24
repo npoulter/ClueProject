@@ -52,6 +52,17 @@ public class Board {
 		this.weaponConfigFile = "Weapons.txt";
 	}	
 
+	public Board(String boardConfigFile, String roomConfigFile) {
+		super();
+		board = new BoardCell[BOARD_SIZE][BOARD_SIZE];
+		this.adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
+		rooms = new HashMap<Character, String>();
+		//this.visited = new HashSet<BoardCell>();
+		//this.targets = new HashSet<BoardCell>();
+		this.boardConfigFile = boardConfigFile;
+		this.roomConfigFile = roomConfigFile;
+	}
+	
 	// constructor with files
 	public Board(String boardConfigFile, String roomConfigFile, String playerConfigFile, String weaponConfigFile) {
 		super();

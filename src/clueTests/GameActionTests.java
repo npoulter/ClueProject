@@ -46,4 +46,64 @@ private ArrayList<Card> localSolution;
 		assertFalse(localSolution.contains(weaponCard));
 		assertFalse(localSolution.contains(roomCard));
 	}
+	
+	// Test disproving a suggestion when one player has only one possible card
+	@Test
+	public void testDisproveSuggestionOnePossibleCard() {
+		
+	}
+	
+	// Test disproving a suggestion when one player has multiple possible cards
+	@Test
+	public void testDisproveSuggestionMultiplePossibleCards() {
+		
+	}
+	
+	// Test the correct order of players when disproving a suggestion
+	@Test
+	public void testDisproveSuggestionOrder() {
+		
+	}
+	
+	// Test disproving a suggestion when the human player has card to show
+	@Test
+	public void testDisproveSuggestionHuman() {
+		
+	}
+	
+	// Test that player whose turn it is doesn't show card to disprove suggestion
+	@Test
+	public void testDisproveSuggestionCurrentPlayer() {
+		
+	}
+	
+	// Test choosing a target with a set that includes a room
+	@Test
+	public void testTargetsWithRoom() {
+			
+	}
+	
+	// Test choosing random target with a set that doesn't include a room
+	@Test
+	public void testTargetsWithoutRoom() {
+				
+	}
+	
+	// Test choosing a target with a set that includes a room that was just visited
+	@Test
+	public void testTargetsWithVistedRoom() {
+				
+	}
+	
+	// Test computer suggestion with only one possible suggestion
+	@Test
+	public void testComputerSuggestionOneOption() {
+					
+	}
+	
+	// Test computer suggestion with only multiple suggestions
+	@Test
+	public void testComputerSuggestionRandom() {
+						
+	}
 }
