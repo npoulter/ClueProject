@@ -1,4 +1,5 @@
 package clueGame;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.List;
 import java.io.BufferedReader;
@@ -16,7 +17,10 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Board extends JPanel {
 	private int numRows;
 	private int numColumns;
 	public static final int BOARD_SIZE = 50;
@@ -483,6 +487,9 @@ public class Board {
 		ArrayList<Card> list = new ArrayList<Card>(Arrays.asList(deckOfCards));
 		return list;
 	}
+	
+	
+	
 
 	// We will probably use this in the future...
 	public static void main(String[] args) {
@@ -493,6 +500,12 @@ public class Board {
 		String weaponConfigFile = "Weapons.txt";
 
 		Board board = new Board(boardConfigFile, roomConfigFile, playerConfigFile, weaponConfigFile);
+		JFrame newFrame = new JFrame();
+		newFrame.setSize(1000,1000);
+		newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		newFrame.add(board, BorderLayout.CENTER);
+		newFrame.setTitle("Clue Board");
+		newFrame.setVisible(true);
 		board.initialize();
 		board.dealCards();
 		BoardCell cell = board.getCellAt(4, 4);

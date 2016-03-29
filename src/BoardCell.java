@@ -1,11 +1,13 @@
+import javax.swing.JPanel;
 
-public class BoardCell {
+public class BoardCell{
 	private int row;
 	private int col;
 	
 	public BoardCell(int i, int j){
 		this.row = i;
 		this.col = j;
+		
 	}
 
 	@Override
