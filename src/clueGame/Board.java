@@ -261,6 +261,7 @@ public class Board extends JPanel {
         			char door = parts[i].charAt(1);
         			if(door == 'N'){
         				numDoors--;
+        				current.setName(rooms.get(parts[i].charAt(0)));
         				current.setDd(DoorDirection.NONE);
         			}
         			//System.out.println(parts[i]);

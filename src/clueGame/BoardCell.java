@@ -9,6 +9,7 @@ public class BoardCell {
 	private char initial;
 	private int row_pixels;
 	private int col_pixels;
+	private String name = ""; 
 	private DoorDirection Dd;
 	
 	public DoorDirection getDd() {
@@ -22,34 +23,40 @@ public class BoardCell {
 	public BoardCell(int i, int j){
 		this.row = i;
 		this.col = j;
-		row_pixels = i * (900/22);
-		col_pixels = j * (900/23);
+		row_pixels = i * (946/22);
+		col_pixels = j * (989/23);
 	}
 	
 	public void draw(BoardCell cell, Graphics g) {
 		if(cell.isWalkway()) {
 			g.setColor(Color.YELLOW);
-			g.fillRect(row_pixels, col_pixels, 1000/23, 1000/22);
+			g.fillRect(col_pixels, row_pixels, 989/23, 946/22);
+			g.setColor(Color.BLACK);
+			g.drawRect(col_pixels, row_pixels, 989/23, 946/22);
 		}
 		if(Dd == DoorDirection.DOWN){
 			g.setColor(Color.BLUE);
-			g.fillRect(row_pixels - 5, col_pixels, 1000/23, 5);
+			g.fillRect(col_pixels, row_pixels + (946/22) - 5, 989/23, 5);
 		}
 		else if(Dd == DoorDirection.UP){
 			g.setColor(Color.BLUE);
-			g.fillRect(row_pixels + (1000/22), col_pixels, 1000/23, 5);
+			g.fillRect(col_pixels, row_pixels, 989/23, 5);
 		}
 		else if(Dd == DoorDirection.LEFT){
 			g.setColor(Color.BLUE);
-			g.fillRect(row_pixels, col_pixels + (1000/23), 5, 1000/22);
+			g.fillRect(col_pixels, row_pixels, 5, 946/22);
 		}
 		else if(Dd == DoorDirection.RIGHT){
 			g.setColor(Color.BLUE);
-			g.fillRect(row_pixels - 1000/22, col_pixels - 5, 5, 1000/22);
+			g.fillRect(col_pixels + 989/23 - 5, row_pixels, 5, 946/22);
 		}
-		if(isRoom()) {
+		if(cell.isRoom()) {
 			g.setColor(Color.GRAY);
-			g.fillRect(row_pixels, col_pixels, 1000/23, 1000/22);
+			g.fillRect(col_pixels, row_pixels, 989/23, 946/22);
+		}
+		if(!cell.name.equals("")) {
+			g.setColor(Color.BLACK);
+			g.drawString(name, col_pixels, row_pixels);
 		}
 	}
 
@@ -60,6 +67,10 @@ public class BoardCell {
 
 	public int getRow() {
 		return row;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getCol() {
