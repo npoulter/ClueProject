@@ -1,6 +1,7 @@
 package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 public class Board extends JPanel {
@@ -42,6 +44,7 @@ public class Board extends JPanel {
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
 	private ArrayList<Card> suspectCards;
+	private ArrayList<BoardCell> allCells;
 	private Solution theSolution;
 	private ArrayList<Card> solution;
 	public int numDoors;
@@ -74,6 +77,7 @@ public class Board extends JPanel {
 	// constructor with files
 	public Board(String boardConfigFile, String roomConfigFile, String playerConfigFile, String weaponConfigFile) {
 		super();
+		allCells = new ArrayList<BoardCell>();
 		board = new BoardCell[BOARD_SIZE][BOARD_SIZE];
 		this.adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 		rooms = new HashMap<Character, String>();
@@ -270,6 +274,7 @@ public class Board extends JPanel {
         				current.setDd(DoorDirection.LEFT);
         		}
         		board[row][i] = current;
+        		allCells.add(current);
         		//System.out.println(current.getInitial());
         	}
         	row++;
@@ -277,6 +282,15 @@ public class Board extends JPanel {
         this.numRows = row;
         bReader.close();
 	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		for(BoardCell cell : allCells) {
+			cell.draw(cell, g);
+		}
+	}
+	
+	
 	
 	// Various getters
 	public int getNumRows() {
@@ -488,36 +502,4 @@ public class Board extends JPanel {
 		return list;
 	}
 	
-	
-	
-
-	// We will probably use this in the future...
-	public static void main(String[] args) {
-		
-		String boardConfigFile = "ClueLayout.csv";
-		String roomConfigFile = "ClueLegend.txt";
-		String playerConfigFile = "Players.txt";
-		String weaponConfigFile = "Weapons.txt";
-
-		Board board = new Board(boardConfigFile, roomConfigFile, playerConfigFile, weaponConfigFile);
-		JFrame newFrame = new JFrame();
-		newFrame.setSize(1000,1000);
-		newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		newFrame.add(board, BorderLayout.CENTER);
-		newFrame.setTitle("Clue Board");
-		newFrame.setVisible(true);
-		board.initialize();
-		board.dealCards();
-		BoardCell cell = board.getCellAt(4, 4);
-		//System.out.println(cell.toString());
-		if(cell.isDoorway())
-			System.out.println("is doorway");
-		else 
-			System.out.println("is NOT doorway");
-
-
-		//System.out.println(board.getNumDoors());
-		
-		//System.out.println("END MAIN");
-	}
 }
