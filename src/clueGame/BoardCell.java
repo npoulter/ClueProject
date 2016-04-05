@@ -63,7 +63,7 @@ public class BoardCell {
 			if (cell.getRow() == playerList.get(i).getRow() && cell.getCol() == playerList.get(i).getColumn()){
 				g.setColor(playerList.get(i).getColor());
 				g.fillOval(col_pixels, row_pixels, 989/33, 946/32);
-				g.setColor(playerList.get(i).getColor());
+				g.setColor(Color.BLACK);
 				g.drawOval(col_pixels, row_pixels, 989/33, 946/32);
 			}
 		}
