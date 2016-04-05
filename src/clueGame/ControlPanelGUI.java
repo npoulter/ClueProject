@@ -17,7 +17,6 @@ public class ControlPanelGUI extends JPanel {
 	private JTextField guess, result;
 	private String name, roll;
 	private JTextArea display;
-	private Board board;
 	
 	public ControlPanelGUI() {
 		

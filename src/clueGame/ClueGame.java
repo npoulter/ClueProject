@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -11,6 +12,9 @@ import javax.swing.JMenuItem;
 
 public class ClueGame extends JFrame {
 	private static Board board;
+	private int[] startingRow;
+	private int[] startingColumn;
+	private ArrayList<Player> playerList;
 	String boardConfigFile = "ClueLayout.csv";
 	String roomConfigFile = "ClueLegend.txt";
 	String playerConfigFile = "Players.txt";
@@ -27,6 +31,9 @@ public class ClueGame extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		board.dealCards();
+		playerList = board.getPlayerList();
+		int[] startingRow = {1, 1, 13, 14, 22, 22};
+		int[] startingColumn = {5, 20, 1, 23, 7, 16};
 	}
 	
 	private JMenu createFileMenu() {

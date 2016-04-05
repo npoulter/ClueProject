@@ -39,7 +39,7 @@ public class Board extends JPanel {
 	private String weaponConfigFile;
 	private Card[] deckOfCards;
 	private Player[] playerArray;
-	private ArrayList<Player> playerList;
+	public ArrayList<Player> playerList;
 	private ArrayList<Card> dealCardsList;
 	private ArrayList<Card> roomCards;
 	private ArrayList<Card> weaponCards;
@@ -47,6 +47,8 @@ public class Board extends JPanel {
 	private ArrayList<BoardCell> allCells;
 	private Solution theSolution;
 	private ArrayList<Card> solution;
+	private int[] startingRow;
+	private int[] startingColumn;
 	public int numDoors;
 	
 	// constructor
@@ -129,6 +131,20 @@ public class Board extends JPanel {
 		playerArray = new Player[6];
 		solution = new ArrayList<Card>();
 		playerList = new ArrayList<Player>();
+		startingRow = new int[6];
+		startingRow[0] = 0;
+		startingRow[1] = 0;
+		startingRow[2] = 12;
+		startingRow[3] = 13;
+		startingRow[4] = 21;
+		startingRow[5] = 21;
+		startingColumn = new int[6];
+		startingColumn[0] = 4;
+		startingColumn[1] = 19;
+		startingColumn[2] = 0;
+		startingColumn[3] = 22;
+		startingColumn[4] = 6;
+		startingColumn[5] = 15;
 		FileReader playerConfigReader = new FileReader(playerConfigFile);
 		FileReader weaponConfigReader = new FileReader(weaponConfigFile);
 		FileReader roomConfigReader = new FileReader(roomConfigFile);
@@ -155,12 +171,11 @@ public class Board extends JPanel {
 			} catch (Exception e){
 				color = null;
 			}
-			Player nextPlayer = new Player(temp[0], 15, 11, color);
+			Player nextPlayer = new Player(temp[0], startingRow[counter], startingColumn[counter], color);
 			playerList.add(nextPlayer);
 			playerArray[counter] = nextPlayer;
 			counter++;
 		}
-		
 		Scanner weaponReader = new Scanner(weaponConfigReader);
 		weaponCards = new ArrayList<Card>();
 		
@@ -287,7 +302,7 @@ public class Board extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for(BoardCell cell : allCells) {
-			cell.draw(cell, g);
+			cell.draw(cell, g, playerList);
 		}
 	}
 	

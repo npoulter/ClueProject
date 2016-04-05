@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class BoardCell {
 	private int row;
@@ -27,7 +28,7 @@ public class BoardCell {
 		col_pixels = j * (989/33);
 	}
 	
-	public void draw(BoardCell cell, Graphics g) {
+	public void draw(BoardCell cell, Graphics g, ArrayList<Player> playerList) {
 		if(cell.isWalkway()) {
 			g.setColor(Color.YELLOW);
 			g.fillRect(col_pixels, row_pixels, 989/33, 946/32);
@@ -58,6 +59,14 @@ public class BoardCell {
 			g.setColor(Color.BLACK);
 			g.drawString(name, col_pixels, row_pixels);
 		}
+		for(int i = 0; i < playerList.size(); i++){
+			if (cell.getRow() == playerList.get(i).getRow() && cell.getCol() == playerList.get(i).getColumn()){
+				g.setColor(playerList.get(i).getColor());
+				g.fillOval(col_pixels, row_pixels, 989/33, 946/32);
+				g.setColor(playerList.get(i).getColor());
+				g.drawOval(col_pixels, row_pixels, 989/33, 946/32);
+			}
+		}
 	}
 
 	@Override
@@ -82,6 +91,7 @@ public class BoardCell {
 			return true;
 		return false;
 	}
+	
 	public boolean isRoom(){
 		return false;
 	}
