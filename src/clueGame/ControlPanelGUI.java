@@ -17,6 +17,7 @@ public class ControlPanelGUI extends JPanel {
 	private JTextField guess, result;
 	private String name, roll;
 	private JTextArea display;
+	private Board board;
 	
 	public ControlPanelGUI() {
 		
@@ -81,7 +82,7 @@ public class ControlPanelGUI extends JPanel {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(750, 175);
+		frame.setSize(750, 250);
 		ControlPanelGUI gui = new ControlPanelGUI();
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setVisible(true);

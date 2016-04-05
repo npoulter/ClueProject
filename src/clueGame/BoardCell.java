@@ -23,36 +23,36 @@ public class BoardCell {
 	public BoardCell(int i, int j){
 		this.row = i;
 		this.col = j;
-		row_pixels = i * (946/22);
-		col_pixels = j * (989/23);
+		row_pixels = i * (946/32);
+		col_pixels = j * (989/33);
 	}
 	
 	public void draw(BoardCell cell, Graphics g) {
 		if(cell.isWalkway()) {
 			g.setColor(Color.YELLOW);
-			g.fillRect(col_pixels, row_pixels, 989/23, 946/22);
+			g.fillRect(col_pixels, row_pixels, 989/33, 946/32);
 			g.setColor(Color.BLACK);
-			g.drawRect(col_pixels, row_pixels, 989/23, 946/22);
+			g.drawRect(col_pixels, row_pixels, 989/33, 946/32);
 		}
 		if(Dd == DoorDirection.DOWN){
 			g.setColor(Color.BLUE);
-			g.fillRect(col_pixels, row_pixels + (946/22) - 5, 989/23, 5);
+			g.fillRect(col_pixels, row_pixels + (946/32) - 5, 989/33, 5);
 		}
 		else if(Dd == DoorDirection.UP){
 			g.setColor(Color.BLUE);
-			g.fillRect(col_pixels, row_pixels, 989/23, 5);
+			g.fillRect(col_pixels, row_pixels, 989/33, 5);
 		}
 		else if(Dd == DoorDirection.LEFT){
 			g.setColor(Color.BLUE);
-			g.fillRect(col_pixels, row_pixels, 5, 946/22);
+			g.fillRect(col_pixels, row_pixels, 5, 946/32);
 		}
 		else if(Dd == DoorDirection.RIGHT){
 			g.setColor(Color.BLUE);
-			g.fillRect(col_pixels + 989/23 - 5, row_pixels, 5, 946/22);
+			g.fillRect(col_pixels + 989/33 - 5, row_pixels, 5, 946/32);
 		}
 		if(cell.isRoom()) {
 			g.setColor(Color.GRAY);
-			g.fillRect(col_pixels, row_pixels, 989/23, 946/22);
+			g.fillRect(col_pixels, row_pixels, 989/33, 946/32);
 		}
 		if(!cell.name.equals("")) {
 			g.setColor(Color.BLACK);

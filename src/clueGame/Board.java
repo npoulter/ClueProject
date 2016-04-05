@@ -498,6 +498,7 @@ public class Board extends JPanel {
 		return playerArray[whichPlayer];
 	}
 	
+	
 	public ArrayList<Card> getCardList(){
 		ArrayList<Card> list = new ArrayList<Card>(Arrays.asList(deckOfCards));
 		return list;
